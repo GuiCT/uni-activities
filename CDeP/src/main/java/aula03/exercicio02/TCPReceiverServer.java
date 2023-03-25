@@ -1,10 +1,7 @@
 package aula03.exercicio02;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -13,6 +10,8 @@ public class TCPReceiverServer {
     public static void main(String[] args) {
         TCPReceiverServer tcpReceiverServer = new TCPReceiverServer();
         tcpReceiverServer.updateAddressPorts();
+        tcpReceiverServer.chosePort();
+        tcpReceiverServer.listenPort();
     }
 
     private MulticastSocket multicastSocket;
@@ -40,7 +39,7 @@ public class TCPReceiverServer {
         }
     }
 
-    public int chosePort() {
+    public void chosePort() {
         Scanner sc = new Scanner(System.in);
         boolean correctInput = false;
         int option;
@@ -56,10 +55,28 @@ Selecione uma porta:
                 correctInput = true;
         } while(!correctInput);
 
-        return option;
+        try {
+            this.multicastSocket = new MulticastSocket(this.availablePorts[option - 1]);
+            InetAddress group = InetAddress.getByName(this.multicastAddress);
+            this.multicastSocket.joinGroup(group);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
-    public void listenPort(int port) {
-
+    public void listenPort() {
+        byte[] buffer = new byte[1024];
+        try {
+            while (true) {
+                DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
+                this.multicastSocket.receive(messageIn);
+                String receivedMessage = new String(messageIn.getData());
+                receivedMessage = receivedMessage.trim();
+                System.out.println("Received:" + receivedMessage + " " + receivedMessage.length());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
