@@ -1,20 +1,20 @@
-// codigo adaptado
+package aula03.exercicio01;
 import java.net.*;
 import java.io.*;
-public class MulticastPeer2 {
+public class MulticastPeerPort {
   public static void main(String args[]) { 
    	 // args give message contents & destination multicast group (e.g. "228.5.6.7")
 	 MulticastSocket s =null;
  	 try {
 	   	  InetAddress group = InetAddress.getByName(args[1]);
-	    	s = new MulticastSocket(9002);
+	    	s = new MulticastSocket(Integer.parseInt(args[2]));
 	    	System.out.println("Time to Live: " + s.getTimeToLive()); // TTL
 	    	s.setTimeToLive(0);  // restringindo ao host
 			System.out.println("TTL: " + s.getTimeToLive()); // TTL
 			s.joinGroup(group);
  	    	byte [] m = args[0].getBytes(); // mensagem passada em linha de comando
 	    	DatagramPacket messageOut = 
-					new DatagramPacket(m, m.length, group, 9002);
+					new DatagramPacket(m, m.length, group, Integer.parseInt(args[2]));
 	    	s.send(messageOut);
 	    	
         // get messages from others in group
