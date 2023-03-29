@@ -21,8 +21,7 @@ public class Exercicio1 {
             // Salvando os resultados em arquivos
             matrixUtils.writeMatrixToFile(matrixSum, "resources/matrizSoma.txt");
             matrixUtils.writeMatrixToFile(matrixDifference, "resources/matrizDiferenca.txt");
-        }
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             System.out.println("Arquivo não disponível.");
         } catch (IOException ex) {
             System.out.println("Não foi possível escrever arquivo.");

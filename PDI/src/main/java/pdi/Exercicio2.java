@@ -1,59 +1,47 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+*/
 package pdi;
 
-import io.PGMHandler;
-import transform.ElementWiseOperation;
-import transform.OperationI;
-import transform.Rotation;
+import matrix.MatrixPGM;
+import matrix.OperationI;
 
 /**
  *
  * @author guilherme
  */
 public class Exercicio2 {
-    public static void main(String[] args) {
-        PGMHandler handler = new PGMHandler();
-        handler.filePath = "resources/lena256.pgm";
-        int[][] matrix = handler.readFromFile();
-        
-        // Escurecer
-        ElementWiseOperation darkenOperation = new ElementWiseOperation();
-        OperationI darken = (value, argument) -> Math.max(value - argument, 0);
-        darkenOperation.operation = darken;
-        int[][] darkenedMatrix = darkenOperation.applyOperation(matrix, 60);
-        handler.filePath = "resources/lena256darkened.pgm";
-        handler.saveToFile(darkenedMatrix, 255);
-        
-        // Clarear
-        ElementWiseOperation lightenOperation = new ElementWiseOperation();
-        OperationI lighten = (value, argument) -> Math.min(value + argument, 255);
-        lightenOperation.operation = lighten;
-        int[][] lightenedMatrix = lightenOperation.applyOperation(matrix, 60);
-        handler.filePath = "resources/lena256lightened.pgm";
-        handler.saveToFile(lightenedMatrix, 255);
-        
-        // Negativar
-        ElementWiseOperation invertOperation = new ElementWiseOperation();
-        OperationI invert = (value, argument) -> 255 - value;
-        invertOperation.operation = invert;
-        int[][] invertedMatrix = invertOperation.applyOperation(matrix, 0);
-        handler.filePath = "resources/lena256inverted.pgm";
-        handler.saveToFile(invertedMatrix, 255);
-        
-        // Rotacionar 90, 180 e 270
-        int[][] rotate90 = Rotation.rotate90(matrix);
-        handler.filePath = "resources/lena256rotate90.pgm";
-        handler.saveToFile(rotate90, 255);
-        
-        int[][] rotate180 = Rotation.rotate180(matrix);
-        handler.filePath = "resources/lena256rotate180.pgm";
-        handler.saveToFile(rotate180, 255);
+  public static void main(String[] args) {
+    try {
+      MatrixPGM matrix = MatrixPGM.readFile("resources/lena256.pgm");
 
-        int[][] rotate270 = Rotation.rotate270(matrix);
-        handler.filePath = "resources/lena256rotate270.pgm";
-        handler.saveToFile(rotate270, 255);       
+      // Escurecer
+      OperationI darken = (value, maxVal) -> Math.max(value - 30, 0);
+      MatrixPGM darkenedMatrix = matrix.applyElementWiseOperation(darken);
+      darkenedMatrix.saveToFile("resources/lena256darkened.pgm");
+
+      // Clarear
+      OperationI lighten = (value, maxVal) -> Math.min(value + 30, maxVal);
+      MatrixPGM lightenedMatrix = matrix.applyElementWiseOperation(lighten);
+      lightenedMatrix.saveToFile("resources/lena256lightened.pgm");
+
+      // Negativar
+      OperationI invert = (value, maxVal) -> maxVal - value;
+      MatrixPGM invertedMatrix = matrix.applyElementWiseOperation(invert);
+      invertedMatrix.saveToFile("resources/lena256inverted.pgm");
+
+      // Rotacionar 90, 180 e 270
+      MatrixPGM rotate90 = matrix.rotate90();
+      rotate90.saveToFile("resources/lena256rotate90.pgm");
+
+      MatrixPGM rotate180 = matrix.rotate180();
+      rotate180.saveToFile("resources/lena256rotate180.pgm");
+
+      MatrixPGM rotate270 = matrix.rotate270();
+      rotate270.saveToFile("resources/lena256rotate270.pgm");
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 }
