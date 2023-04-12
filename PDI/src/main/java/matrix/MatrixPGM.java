@@ -67,7 +67,7 @@ public class MatrixPGM {
     bw.write("P2");
     bw.newLine();
     // Escreve dimensões: linha coluna
-    bw.write(String.format("%d %d", this.lines, this.columns));
+    bw.write(String.format("%d %d", this.columns, this.lines));
     bw.newLine();
     // Escreve valor máximo
     bw.write(String.format("%d", this.maxVal));
@@ -204,5 +204,49 @@ public class MatrixPGM {
     dropped.maxVal = newMaxVal;
 
     return dropped;
+  }
+  
+  public MatrixPGM doubleSize() {
+      MatrixPGM doubledSize = new MatrixPGM();
+      doubledSize.lines = this.lines * 2;
+      doubledSize.columns = this.columns * 2;
+      doubledSize.maxVal = this.maxVal;
+      doubledSize.values = new int[doubledSize.lines][doubledSize.columns];
+      
+      for (int i = 0; i < this.lines; i++) {
+          for (int j = 0; j < this.columns; j++) {
+              int pixelValue = this.values[i][j];
+              int i2 = i * 2;
+              int j2 = j * 2;
+              doubledSize.values[i2][j2] = pixelValue;
+              doubledSize.values[i2][j2 + 1] = pixelValue;
+              doubledSize.values[i2 + 1][j2] = pixelValue;
+              doubledSize.values[i2 + 1][j2 + 1] = pixelValue;
+          }
+      }
+      
+      return doubledSize;
+  }
+  
+  public MatrixPGM halfSize() {
+      MatrixPGM halfSize = new MatrixPGM();
+      halfSize.lines = this.lines / 2;
+      halfSize.columns = this.columns / 2;
+      halfSize.maxVal = this.maxVal;
+      halfSize.values = new int[halfSize.lines][halfSize.columns];
+      
+      for (int i = 0; i < halfSize.lines; i++) {
+          for (int j = 0; j < halfSize.columns; j++) {
+              int i2 = i * 2;
+              int j2 = j * 2;
+              halfSize.values[i][j] =
+                      (this.values[i2][j2] +
+                      this.values[i2][j2 + 1] +
+                      this.values[i2 + 1][j2] +
+                      this.values[i2 + 1][j2 + 1]) / 4;
+          }
+      }
+      
+      return halfSize;
   }
 }
