@@ -1,12 +1,11 @@
 package threadFilaBanco;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class Banco {
 
     public static int saques = 0;
     public static int depositos = 0;
+    public static int totalSacado = 0;
+    public static int totalDepositado = 0;
 
     public static void main(String[] args) {
         Caixa caixa1 = new Caixa(1, 100, 5);
@@ -17,8 +16,9 @@ public class Banco {
             caixa1.join();
             caixa2.join();
             System.out.println(String.format("Saques: %d\nDepósitos: %d", Banco.saques, Banco.depositos));
+            System.out.println(String.format("Total sacado: %d\nTotal depositado: %d", Banco.totalSacado, Banco.totalDepositado));
         } catch (InterruptedException ex) {
-            Logger.getLogger(Banco.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 }
