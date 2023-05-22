@@ -27,8 +27,8 @@ public class Exercicio5 {
             };
             lenaSegundaFuncao = lenaSegundaFuncao
                     .applyElementWiseOperation(segundaFuncao);
-            lenaPrimeiraFuncao.saveToFile("resources/lenaex5a.pgm");
-            lenaSegundaFuncao.saveToFile("resources/lenaex5b.pgm");
+            lenaPrimeiraFuncao.saveToFile("resources/aula5/lenaex5a.pgm");
+            lenaSegundaFuncao.saveToFile("resources/aula5/lenaex5b.pgm");
         } catch (Exception e) {
             e.printStackTrace();
         }
