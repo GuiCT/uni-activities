@@ -1,0 +1,1 @@
+docker run --name postgres-livros --env-file=./.env.docker -p 5432:5432 -d postgres

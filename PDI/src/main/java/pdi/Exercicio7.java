@@ -9,8 +9,8 @@ public class Exercicio7 {
             MatrixPGM lena = MatrixPGM.readFile("resources/lena256.pgm");
             MatrixPGM lenaDoubled = lena.doubleSize();
             MatrixPGM lenaHalf = lena.halfSize();
-            lenaDoubled.saveToFile("resources/lena512.pgm");
-            lenaHalf.saveToFile("resources/lena128.pgm");
+            lenaDoubled.saveToFile("resources/aula5/lena512.pgm");
+            lenaHalf.saveToFile("resources/aula5/lena128.pgm");
         } catch (Exception e) {
             e.printStackTrace();
         }

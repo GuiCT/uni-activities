@@ -15,7 +15,7 @@ public class Exercicio8 {
                     histogramVector[lena.values[i][j]]++;
                 }
             }
-            FileWriter histogramFile = new FileWriter("resources/lenaHistogram.csv");
+            FileWriter histogramFile = new FileWriter("resources/aula5/lenaHistogram.csv");
             BufferedWriter bfw = new BufferedWriter(histogramFile);
             for (int i = 0 ; i < lena.maxVal; i++)
                 bfw.write(String.format("%d,", histogramVector[i]));

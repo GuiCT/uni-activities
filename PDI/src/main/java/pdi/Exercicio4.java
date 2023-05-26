@@ -9,10 +9,10 @@ public class Exercicio4 {
             MatrixPGM lena8levels = lena.dropGrayScale(7);
             MatrixPGM lena4levels = lena.dropGrayScale(3);
             MatrixPGM lena2levels = lena.dropGrayScale(1);
-            lena16levels.saveToFile("resources/lena16levels.pgm");
-            lena8levels.saveToFile("resources/lena8levels.pgm");
-            lena4levels.saveToFile("resources/lena4levels.pgm");
-            lena2levels.saveToFile("resources/lena2levels.pgm");
+            lena16levels.saveToFile("resources/aula4/lena_16levels.pgm");
+            lena8levels.saveToFile("resources/aula4/lena_8levels.pgm");
+            lena4levels.saveToFile("resources/aula4/lena_4levels.pgm");
+            lena2levels.saveToFile("resources/aula4/lena_2levels.pgm");
         } catch (Exception e) {
             e.printStackTrace();
         }
